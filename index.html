@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumHex Arena v3 — Clean & Focused</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #111118;
+            --bg-card: #16161f;
+            --bg-hover: #1e1e2a;
+            --border: #252532;
+            --text-primary: #e2e2e8;
+            --text-secondary: #8a8a9a;
+            --text-muted: #5a5a6a;
+            --accent: #00d4aa;
+            --accent-dim: #00d4aa22;
+            --accent-glow: #00d4aa44;
+            --danger: #ff4757;
+            --warning: #ffa502;
+            --success: #2ed573;
+            --info: #1e90ff;
+            --morocco: #c1272d;
+            --germany: #ffce00;
+            --germany-dark: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent) 0%, #00b4d8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .header .flags {
+            font-size: 2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .card-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-title .icon {
+            font-size: 1.3rem;
+        }
+
+        /* Countdown */
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .countdown-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem 0.5rem;
+        }
+
+        .countdown-item .number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+
+        .countdown-item .label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .countdown-destination {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .countdown-destination span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Table */
+        .roadmap-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .roadmap-table th {
+            text-align: left;
+            padding: 0.8rem 0.6rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-bottom: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .roadmap-table td {
+            padding: 0.9rem 0.6rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .roadmap-table tr:hover td {
+            background: var(--bg-hover);
+        }
+
+        .roadmap-table tr.completed {
+            background: var(--accent-dim);
+        }
+
+        .roadmap-table tr.completed td {
+            color: var(--success);
+            border-color: var(--accent);
+        }
+
+        .milestone-name {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rating-badge {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .rating-pupil { color: #a0a0a0; border-color: #a0a0a0; }
+        .rating-specialist { color: #00d4aa; border-color: #00d4aa; }
+        .rating-expert { color: #1e90ff; border-color: #1e90ff; }
+        .rating-cmaster { color: #aa00ff; border-color: #aa00ff; }
+        .rating-master { color: #ff8c00; border-color: #ff8c00; }
+        .rating-grandmaster { color: #ff4757; border-color: #ff4757; }
+
+        /* Checkbox */
+        .custom-checkbox {
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+            background: var(--bg-secondary);
+        }
+
+        .custom-checkbox:checked {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .custom-checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--bg-primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* Spiritual */
+        .prayer-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.8rem;
+        }
+
+        .prayer-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .prayer-item:hover {
+            border-color: var(--accent);
+        }
+
+        .prayer-item.done {
+            background: var(--accent-dim);
+            border-color: var(--accent);
+        }
+
+        .prayer-item .prayer-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .prayer-item .prayer-check {
+            font-size: 1.5rem;
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .prayer-item.done .prayer-check {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        .adhkar-section {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .adhkar-item {
+            flex: 1;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .adhkar-item:hover {
+            border-color: var(--accent);
+        }
+
+        .adhkar-item.done {
+            background: var(--accent-dim);
+            border-color: var(--accent);
+        }
+
+        .adhkar-item .adhkar-text {
+            font-size: 0.95rem;
+        }
+
+        .adhkar-item .adhkar-status {
+            font-size: 1.2rem;
+            opacity: 0.3;
+        }
+
+        .adhkar-item.done .adhkar-status {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        /* Gym */
+        .gym-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.8rem;
+        }
+
+        .gym-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .gym-item:hover {
+            border-color: var(--accent);
+        }
+
+        .gym-item.done {
+            background: var(--accent-dim);
+            border-color: var(--accent);
+        }
+
+        .gym-item .gym-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .gym-item .gym-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .gym-item .gym-check {
+            font-size: 1.2rem;
+            margin-top: 0.3rem;
+            opacity: 0.3;
+            transition: all 0.3s ease;
+        }
+
+        .gym-item.done .gym-check {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        /* Academic Timers */
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .timer-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .timer-card:hover {
+            border-color: var(--accent);
+        }
+
+        .timer-card.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .timer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .timer-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .timer-target {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--bg-primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .timer-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-align: center;
+            margin: 0.8rem 0;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .timer-btn {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .timer-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+        }
+
+        .timer-btn.play {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+        }
+
+        .timer-progress {
+            width: 100%;
+            height: 6px;
+            background: var(--bg-primary);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .timer-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #00b4d8);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .timer-streak {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .timer-streak span {
+            color: var(--warning);
+            font-weight: 600;
+        }
+
+        /* Export */
+        .export-section {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .export-btn {
+            background: linear-gradient(135deg, var(--accent), #00b4d8);
+            color: var(--bg-primary);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px var(--accent-glow);
+        }
+
+        .export-preview {
+            flex: 1;
+            min-width: 300px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            max-height: 120px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .countdown-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .prayer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gym-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .roadmap-table {
+                font-size: 0.8rem;
+            }
+            .roadmap-table th, .roadmap-table td {
+                padding: 0.5rem 0.3rem;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .countdown-grid {
+                grid-template-columns: 1fr;
+            }
+            .prayer-grid {
+                grid-template-columns: 1fr;
+            }
+            .gym-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .date-display {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="flags">🇲🇦 🏆 🇩🇪</div>
+            <h1>QuantumHex Arena v3</h1>
+            <div class="subtitle">Clean & Focused — Monk Mode Dashboard</div>
+        </div>
+
+        <!-- IOI 2027 Countdown -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon">🔥</span>
+                IOI 2027 Potsdam Countdown
+            </div>
+            <div class="countdown-grid">
+                <div class="countdown-item">
+                    <span class="number" id="cd-days">000</span>
+                    <span class="label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="number" id="cd-hours">00</span>
+                    <span class="label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="number" id="cd-minutes">00</span>
+                    <span class="label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="number" id="cd-seconds">00</span>
+                    <span class="label">Seconds</span>
+                </div>
+            </div>
+            <div class="countdown-destination">
+                Destination: <span>Potsdam, Germany 🇩🇪</span> — From Morocco 🇲🇦 to IOI 2027
+            </div>
+            <div class="date-display" id="target-date"></div>
+        </div>
+
+        <!-- Codeforces Roadmap -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon">🎯</span>
+                Codeforces Roadmap — Your Milestones
+            </div>
+            <table class="roadmap-table">
+                <thead>
+                    <tr>
+                        <th>Milestone</th>
+                        <th>Rating</th>
+                        <th>Time</th>
+                        <th>Grind</th>
+                        <th>Topics</th>
+                        <th>Done</th>
+                    </tr>
+                </thead>
+                <tbody id="roadmap-body">
+                    <tr data-milestone="pupil">
+                        <td class="milestone-name">Pupil</td>
+                        <td><span class="rating-badge rating-pupil">1200</span></td>
+                        <td>2 Months</td>
+                        <td>100+ problems (800-1100)</td>
+                        <td>Basic Math, Brute Force, STL</td>
+                        <td><input type="checkbox" class="custom-checkbox" onchange="toggleMilestone(this)"></td>
+                    </tr>
+                    <tr data-milestone="specialist">
+                        <td class="milestone-name">Specialist</td>
+                        <td><span class="rating-badge rating-specialist">1400</span></td>
+                        <td>3 Months</td>
+                        <td>150+ problems (1200-1400)</td>
+                        <td>Binary Search, Greedy, DFS/BFS</td>
+                        <td><input type="checkbox" class="custom-checkbox" onchange="toggleMilestone(this)"></td>
+                    </tr>
+                    <tr data-milestone="expert">
+                        <td class="milestone-name">Expert</td>
+                        <td><span class="rating-badge rating-expert">1600</span></td>
+                        <td>4 Months</td>
+                        <td>200+ problems (1500-1700)</td>
+                        <td>DP, DSU, Trees</td>
+                        <td><input type="checkbox" class="custom-checkbox" onchange="toggleMilestone(this)"></td>
+                    </tr>
+                    <tr data-milestone="cmaster">
+                        <td class="milestone-name">C. Master</td>
+                        <td><span class="rating-badge rating-cmaster">1900</span></td>
+                        <td>6 Months</td>
+                        <td>300+ problems (1800-2000)</td>
+                        <td>Segment Trees, Bitmask, Combinatorics</td>
+                        <td><input type="checkbox" class="custom-checkbox" onchange="toggleMilestone(this)"></td>
+                    </tr>
+                    <tr data-milestone="master">
+                        <td class="milestone-name">Master</td>
+                        <td><span class="rating-badge rating-master">2100</span></td>
+                        <td>5 Months</td>
+                        <td>250+ problems (2100-2300)</td>
+                        <td>Number Theory, Centroid, Flows</td>
+                        <td><input type="checkbox" class="custom-checkbox" onchange="toggleMilestone(this)"></td>
+                    </tr>
+                    <tr data-milestone="grandmaster">
+                        <td class="milestone-name">Grandmaster</td>
+                        <td><span class="rating-badge rating-grandmaster">2400</span></td>
+                        <td>4 Months</td>
+                        <td>200+ problems (2400+)</td>
+                        <td>Hard Ad-hoc, String Algorithms, FFT</td>
+                        <td><input type="checkbox" class="custom-checkbox" onchange="toggleMilestone(this)"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Spiritual -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon">🕌</span>
+                Spiritual — Simple & Clean
+            </div>
+            <div class="prayer-grid">
+                <div class="prayer-item" onclick="togglePrayer(this)" data-prayer="fajr">
+                    <div class="prayer-name">الفجر</div>
+                    <div class="prayer-check">✓</div>
+                </div>
+                <div class="prayer-item" onclick="togglePrayer(this)" data-prayer="dhuhr">
+                    <div class="prayer-name">الظهر</div>
+                    <div class="prayer-check">✓</div>
+                </div>
+                <div class="prayer-item" onclick="togglePrayer(this)" data-prayer="asr">
+                    <div class="prayer-name">العصر</div>
+                    <div class="prayer-check">✓</div>
+                </div>
+                <div class="prayer-item" onclick="togglePrayer(this)" data-prayer="maghrib">
+                    <div class="prayer-name">المغرب</div>
+                    <div class="prayer-check">✓</div>
+                </div>
+                <div class="prayer-item" onclick="togglePrayer(this)" data-prayer="isha">
+                    <div class="prayer-name">العشاء</div>
+                    <div class="prayer-check">✓</div>
+                </div>
+            </div>
+            <div class="adhkar-section">
+                <div class="adhkar-item" onclick="toggleAdhkar(this)" data-adhkar="morning">
+                    <span class="adhkar-text">أذكار الصباح</span>
+                    <span class="adhkar-status">✓</span>
+                </div>
+                <div class="adhkar-item" onclick="toggleAdhkar(this)" data-adhkar="evening">
+                    <span class="adhkar-text">أذكار المساء</span>
+                    <span class="adhkar-status">✓</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gym & Nutrition -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon">💪</span>
+                Gym & Nutrition — Mini Checks
+            </div>
+            <div class="gym-grid">
+                <div class="gym-item" onclick="toggleGym(this)" data-gym="workout">
+                    <span class="gym-icon">🏋️</span>
+                    <span class="gym-label">Workout</span>
+                    <div class="gym-check">✓</div>
+                </div>
+                <div class="gym-item" onclick="toggleGym(this)" data-gym="protein">
+                    <span class="gym-icon">🥩</span>
+                    <span class="gym-label">Protein</span>
+                    <div class="gym-check">✓</div>
+                </div>
+                <div class="gym-item" onclick="toggleGym(this)" data-gym="calories">
+                    <span class="gym-icon">🔥</span>
+                    <span class="gym-label">Calories</span>
+                    <div class="gym-check">✓</div>
+                </div>
+                <div class="gym-item" onclick="toggleGym(this)" data-gym="water">
+                    <span class="gym-icon">💧</span>
+                    <span class="gym-label">Water</span>
+                    <div class="gym-check">✓</div>
+                </div>
+                <div class="gym-item" onclick="toggleGym(this)" data-gym="sleep">
+                    <span class="gym-icon">😴</span>
+                    <span class="gym-label">Sleep</span>
+                    <div class="gym-check">✓</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon">📚</span>
+                Academic — Your Obsession Zone
+            </div>
+            <div class="timer-grid">
+                <div class="timer-card" id="timer-cp">
+                    <div class="timer-header">
+                        <span class="timer-name">💻 CP</span>
+                        <span class="timer-target">8h</span>
+                    </div>
+                    <div class="timer-display" id="display-cp">00:00:00</div>
+                    <div class="timer-controls">
+                        <button class="timer-btn" onclick="toggleTimer('cp')" id="btn-cp">▶ Play</button>
+                        <button class="timer-btn" onclick="resetTimer('cp')">↺ Reset</button>
+                    </div>
+                    <div class="timer-progress">
+                        <div class="timer-progress-bar" id="progress-cp" style="width: 0%"></div>
+                    </div>
+                    <div class="timer-streak">Streak: <span id="streak-cp">0</span> days 🔥</div>
+                </div>
+                <div class="timer-card" id="timer-english">
+                    <div class="timer-header">
+                        <span class="timer-name">🌍 English</span>
+                        <span class="timer-target">1.5h</span>
+                    </div>
+                    <div class="timer-display" id="display-english">00:00:00</div>
+                    <div class="timer-controls">
+                        <button class="timer-btn" onclick="toggleTimer('english')" id="btn-english">▶ Play</button>
+                        <button class="timer-btn" onclick="resetTimer('english')">↺ Reset</button>
+                    </div>
+                    <div class="timer-progress">
+                        <div class="timer-progress-bar" id="progress-english" style="width: 0%"></div>
+                    </div>
+                    <div class="timer-streak">Streak: <span id="streak-english">0</span> days 🔥</div>
+                </div>
+                <div class="timer-card" id="timer-math">
+                    <div class="timer-header">
+                        <span class="timer-name">📐 Math</span>
+                        <span class="timer-target">2h</span>
+                    </div>
+                    <div class="timer-display" id="display-math">00:00:00</div>
+                    <div class="timer-controls">
+                        <button class="timer-btn" onclick="toggleTimer('math')" id="btn-math">▶ Play</button>
+                        <button class="timer-btn" onclick="resetTimer('math')">↺ Reset</button>
+                    </div>
+                    <div class="timer-progress">
+                        <div class="timer-progress-bar" id="progress-math" style="width: 0%"></div>
+                    </div>
+                    <div class="timer-streak">Streak: <span id="streak-math">0</span> days 🔥</div>
+                </div>
+                <div class="timer-card" id="timer-typing">
+                    <div class="timer-header">
+                        <span class="timer-name">⌨️ Typing</span>
+                        <span class="timer-target">0.5h</span>
+                    </div>
+                    <div class="timer-display" id="display-typing">00:00:00</div>
+                    <div class="timer-controls">
+                        <button class="timer-btn" onclick="toggleTimer('typing')" id="btn-typing">▶ Play</button>
+                        <button class="timer-btn" onclick="resetTimer('typing')">↺ Reset</button>
+                    </div>
+                    <div class="timer-progress">
+                        <div class="timer-progress-bar" id="progress-typing" style="width: 0%"></div>
+                    </div>
+                    <div class="timer-streak">Streak: <span id="streak-typing">0</span> days 🔥</div>
+                </div>
+                <div class="timer-card" id="timer-school">
+                    <div class="timer-header">
+                        <span class="timer-name">🏫 School</span>
+                        <span class="timer-target">2h</span>
+                    </div>
+                    <div class="timer-display" id="display-school">00:00:00</div>
+                    <div class="timer-controls">
+                        <button class="timer-btn" onclick="toggleTimer('school')" id="btn-school">▶ Play</button>
+                        <button class="timer-btn" onclick="resetTimer('school')">↺ Reset</button>
+                    </div>
+                    <div class="timer-progress">
+                        <div class="timer-progress-bar" id="progress-school" style="width: 0%"></div>
+                    </div>
+                    <div class="timer-streak">Streak: <span id="streak-school">0</span> days 🔥</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export -->
+        <div class="card">
+            <div class="card-title">
+                <span class="icon">📊</span>
+                Export — Backup Your Progress
+            </div>
+            <div class="export-section">
+                <button class="export-btn" onclick="exportData()">📥 Download Backup</button>
+                <div class="export-preview" id="export-preview">
+                    Click "Download Backup" to generate and preview your monk-mode data...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===================== IOI 2027 Countdown =====================
+        const targetDate = new Date('2027-07-31T00:00:00'); // IOI 2027 estimated date
+        document.getElementById('target-date').textContent = 'Target: ' + targetDate.toLocaleDateString('en-US', { 
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
+        });
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('cd-days').textContent = '00';
+                document.getElementById('cd-hours').textContent = '00';
+                document.getElementById('cd-minutes').textContent = '00';
+                document.getElementById('cd-seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').textContent = String(days).padStart(3, '0');
+            document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // ===================== Milestones =====================
+        function toggleMilestone(checkbox) {
+            const row = checkbox.closest('tr');
+            if (checkbox.checked) {
+                row.classList.add('completed');
+            } else {
+                row.classList.remove('completed');
+            }
+            saveState();
+        }
+
+        // ===================== Spiritual =====================
+        function togglePrayer(element) {
+            element.classList.toggle('done');
+            saveState();
+        }
+
+        function toggleAdhkar(element) {
+            element.classList.toggle('done');
+            saveState();
+        }
+
+        // ===================== Gym =====================
+        function toggleGym(element) {
+            element.classList.toggle('done');
+            saveState();
+        }
+
+        // ===================== Academic Timers =====================
+        const timers = {};
+        const timerTargets = {
+            cp: 8 * 3600,      // 8 hours
+            english: 1.5 * 3600, // 1.5 hours
+            math: 2 * 3600,    // 2 hours
+            typing: 0.5 * 3600, // 0.5 hours
+            school: 2 * 3600   // 2 hours
+        };
+
+        function formatTime(seconds) {
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = seconds % 60;
+            return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        function toggleTimer(id) {
+            const btn = document.getElementById('btn-' + id);
+            const card = document.getElementById('timer-' + id);
+
+            if (!timers[id]) {
+                timers[id] = { elapsed: 0, running: false, interval: null };
+            }
+
+            if (timers[id].running) {
+                // Pause
+                clearInterval(timers[id].interval);
+                timers[id].running = false;
+                btn.textContent = '▶ Play';
+                btn.classList.remove('play');
+                card.classList.remove('active');
+            } else {
+                // Play
+                timers[id].running = true;
+                btn.textContent = '⏸ Pause';
+                btn.classList.add('play');
+                card.classList.add('active');
+                timers[id].interval = setInterval(() => {
+                    timers[id].elapsed++;
+                    document.getElementById('display-' + id).textContent = formatTime(timers[id].elapsed);
+                    const progress = Math.min((timers[id].elapsed / timerTargets[id]) * 100, 100);
+                    document.getElementById('progress-' + id).style.width = progress + '%';
+                }, 1000);
+            }
+            saveState();
+        }
+
+        function resetTimer(id) {
+            if (timers[id]) {
+                if (timers[id].running) {
+                    clearInterval(timers[id].interval);
+                }
+                timers[id].elapsed = 0;
+                timers[id].running = false;
+            }
+            document.getElementById('display-' + id).textContent = '00:00:00';
+            document.getElementById('progress-' + id).style.width = '0%';
+            document.getElementById('btn-' + id).textContent = '▶ Play';
+            document.getElementById('btn-' + id).classList.remove('play');
+            document.getElementById('timer-' + id).classList.remove('active');
+            saveState();
+        }
+
+        // ===================== Export =====================
+        function getPrayerStatus() {
+            const prayers = {};
+            document.querySelectorAll('.prayer-item').forEach(item => {
+                prayers[item.dataset.prayer] = item.classList.contains('done');
+            });
+            return prayers;
+        }
+
+        function getAdhkarStatus() {
+            const adhkar = {};
+            document.querySelectorAll('.adhkar-item').forEach(item => {
+                adhkar[item.dataset.adhkar] = item.classList.contains('done');
+            });
+            return adhkar;
+        }
+
+        function getGymStatus() {
+            const gym = {};
+            document.querySelectorAll('.gym-item').forEach(item => {
+                gym[item.dataset.gym] = item.classList.contains('done');
+            });
+            return gym;
+        }
+
+        function getMilestoneStatus() {
+            const milestones = {};
+            document.querySelectorAll('#roadmap-body tr').forEach(row => {
+                const key = row.dataset.milestone;
+                const checkbox = row.querySelector('input[type="checkbox"]');
+                milestones[key] = checkbox.checked;
+            });
+            return milestones;
+        }
+
+        function getTimerStatus() {
+            const timerData = {};
+            Object.keys(timers).forEach(key => {
+                timerData[key] = {
+                    elapsed: timers[key] ? timers[key].elapsed : 0,
+                    running: timers[key] ? timers[key].running : false
+                };
+            });
+            return timerData;
+        }
+
+        function calculateDailyPercentage() {
+            let total = 0;
+            let done = 0;
+
+            // Prayers (5)
+            const prayers = getPrayerStatus();
+            Object.values(prayers).forEach(v => { total++; if (v) done++; });
+
+            // Adhkar (2)
+            const adhkar = getAdhkarStatus();
+            Object.values(adhkar).forEach(v => { total++; if (v) done++; });
+
+            // Gym (5)
+            const gym = getGymStatus();
+            Object.values(gym).forEach(v => { total++; if (v) done++; });
+
+            // Milestones (6) - weighted less
+            const milestones = getMilestoneStatus();
+            Object.values(milestones).forEach(v => { total += 0.5; if (v) done += 0.5; });
+
+            // Timers progress
+            Object.keys(timerTargets).forEach(key => {
+                total += 1;
+                const elapsed = timers[key] ? timers[key].elapsed : 0;
+                const progress = Math.min(elapsed / timerTargets[key], 1);
+                done += progress;
+            });
+
+            return Math.round((done / total) * 100);
+        }
+
+        function exportData() {
+            const now = new Date();
+            const dateStr = now.toISOString().split('T')[0];
+            const filename = `monk-mode-backup-${dateStr}.json`;
+
+            const data = {
+                exportDate: now.toISOString(),
+                filename: filename,
+                dailyPercentage: calculateDailyPercentage(),
+                prayers: getPrayerStatus(),
+                adhkar: getAdhkarStatus(),
+                discipline: getGymStatus(),
+                hours: getTimerStatus(),
+                milestones: getMilestoneStatus(),
+                ioi2027: {
+                    targetDate: targetDate.toISOString(),
+                    daysRemaining: parseInt(document.getElementById('cd-days').textContent)
+                }
+            };
+
+            const jsonStr = JSON.stringify(data, null, 2);
+            document.getElementById('export-preview').textContent = jsonStr;
+
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // ===================== LocalStorage Save/Load =====================
+        function saveState() {
+            const state = {
+                prayers: getPrayerStatus(),
+                adhkar: getAdhkarStatus(),
+                gym: getGymStatus(),
+                milestones: getMilestoneStatus(),
+                timers: getTimerStatus()
+            };
+            localStorage.setItem('quantumhex-arena-v3', JSON.stringify(state));
+        }
+
+        function loadState() {
+            const saved = localStorage.getItem('quantumhex-arena-v3');
+            if (!saved) return;
+
+            try {
+                const state = JSON.parse(saved);
+
+                // Restore prayers
+                if (state.prayers) {
+                    Object.entries(state.prayers).forEach(([key, val]) => {
+                        const el = document.querySelector(`[data-prayer="${key}"]`);
+                        if (el && val) el.classList.add('done');
+                    });
+                }
+
+                // Restore adhkar
+                if (state.adhkar) {
+                    Object.entries(state.adhkar).forEach(([key, val]) => {
+                        const el = document.querySelector(`[data-adhkar="${key}"]`);
+                        if (el && val) el.classList.add('done');
+                    });
+                }
+
+                // Restore gym
+                if (state.gym) {
+                    Object.entries(state.gym).forEach(([key, val]) => {
+                        const el = document.querySelector(`[data-gym="${key}"]`);
+                        if (el && val) el.classList.add('done');
+                    });
+                }
+
+                // Restore milestones
+                if (state.milestones) {
+                    Object.entries(state.milestones).forEach(([key, val]) => {
+                        const row = document.querySelector(`tr[data-milestone="${key}"]`);
+                        if (row) {
+                            const cb = row.querySelector('input[type="checkbox"]');
+                            if (cb) {
+                                cb.checked = val;
+                                if (val) row.classList.add('completed');
+                            }
+                        }
+                    });
+                }
+
+                // Restore timers (elapsed time only, not running state)
+                if (state.timers) {
+                    Object.entries(state.timers).forEach(([key, val]) => {
+                        if (!timers[key]) timers[key] = { elapsed: 0, running: false, interval: null };
+                        timers[key].elapsed = val.elapsed || 0;
+                        document.getElementById('display-' + key).textContent = formatTime(timers[key].elapsed);
+                        const progress = Math.min((timers[key].elapsed / timerTargets[key]) * 100, 100);
+                        document.getElementById('progress-' + key).style.width = progress + '%';
+                    });
+                }
+            } catch (e) {
+                console.error('Failed to load state:', e);
+            }
+        }
+
+        // Load saved state on page load
+        loadState();
+
+        // Auto-save periodically
+        setInterval(saveState, 30000); // Save every 30 seconds
+    </script>
+</body>
+</html>
