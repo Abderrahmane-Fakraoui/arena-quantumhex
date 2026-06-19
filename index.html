@@ -32,16 +32,9 @@
             --warning: #ffa502;
             --success: #2ed573;
             --info: #1e90ff;
-            --morocco: #c1272d;
-            --germany: #ffce00;
-            --germany-dark: #000000;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -82,10 +75,7 @@
             letter-spacing: 0.5px;
         }
 
-        .header .flags {
-            font-size: 2rem;
-            margin-top: 0.5rem;
-        }
+        .header .flags { font-size: 2rem; margin-top: 0.5rem; }
 
         /* Cards */
         .card {
@@ -113,9 +103,7 @@
             gap: 0.5rem;
         }
 
-        .card-title .icon {
-            font-size: 1.3rem;
-        }
+        .card-title .icon { font-size: 1.3rem; }
 
         /* Countdown */
         .countdown-grid {
@@ -159,6 +147,14 @@
             font-weight: 600;
         }
 
+        .date-display {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
         /* Table */
         .roadmap-table {
             width: 100%;
@@ -184,9 +180,7 @@
             vertical-align: middle;
         }
 
-        .roadmap-table tr:hover td {
-            background: var(--bg-hover);
-        }
+        .roadmap-table tr:hover td { background: var(--bg-hover); }
 
         .roadmap-table tr.completed {
             background: var(--accent-dim);
@@ -268,9 +262,7 @@
             user-select: none;
         }
 
-        .prayer-item:hover {
-            border-color: var(--accent);
-        }
+        .prayer-item:hover { border-color: var(--accent); }
 
         .prayer-item.done {
             background: var(--accent-dim);
@@ -314,18 +306,14 @@
             user-select: none;
         }
 
-        .adhkar-item:hover {
-            border-color: var(--accent);
-        }
+        .adhkar-item:hover { border-color: var(--accent); }
 
         .adhkar-item.done {
             background: var(--accent-dim);
             border-color: var(--accent);
         }
 
-        .adhkar-item .adhkar-text {
-            font-size: 0.95rem;
-        }
+        .adhkar-item .adhkar-text { font-size: 0.95rem; }
 
         .adhkar-item .adhkar-status {
             font-size: 1.2rem;
@@ -355,9 +343,7 @@
             user-select: none;
         }
 
-        .gym-item:hover {
-            border-color: var(--accent);
-        }
+        .gym-item:hover { border-color: var(--accent); }
 
         .gym-item.done {
             background: var(--accent-dim);
@@ -370,10 +356,7 @@
             display: block;
         }
 
-        .gym-item .gym-label {
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
+        .gym-item .gym-label { font-size: 0.85rem; font-weight: 500; }
 
         .gym-item .gym-check {
             font-size: 1.2rem;
@@ -390,7 +373,7 @@
         /* Academic Timers */
         .timer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
             gap: 1rem;
         }
 
@@ -400,11 +383,10 @@
             border-radius: 14px;
             padding: 1.2rem;
             transition: all 0.3s ease;
+            position: relative;
         }
 
-        .timer-card:hover {
-            border-color: var(--accent);
-        }
+        .timer-card:hover { border-color: var(--accent); }
 
         .timer-card.active {
             border-color: var(--accent);
@@ -446,20 +428,21 @@
 
         .timer-controls {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.4rem;
             justify-content: center;
             margin-bottom: 0.8rem;
+            flex-wrap: wrap;
         }
 
         .timer-btn {
             background: var(--bg-primary);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            padding: 0.4rem 1rem;
+            padding: 0.4rem 0.8rem;
             border-radius: 8px;
             cursor: pointer;
             font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
             transition: all 0.2s ease;
         }
@@ -474,6 +457,18 @@
             background: var(--accent);
             color: var(--bg-primary);
             border-color: var(--accent);
+        }
+
+        .timer-btn.add-btn {
+            background: var(--warning);
+            color: var(--bg-primary);
+            border-color: var(--warning);
+            font-weight: 600;
+        }
+
+        .timer-btn.add-btn:hover {
+            background: #ff9500;
+            border-color: #ff9500;
         }
 
         .timer-progress {
@@ -501,6 +496,114 @@
         .timer-streak span {
             color: var(--warning);
             font-weight: 600;
+        }
+
+        /* Add Time Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.show { display: flex; }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            width: 90%;
+            max-width: 320px;
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .modal-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .modal-inputs {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .modal-input-group {
+            text-align: center;
+        }
+
+        .modal-input-group label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
+        }
+
+        .modal-input {
+            width: 70px;
+            padding: 0.5rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            text-align: center;
+            outline: none;
+        }
+
+        .modal-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 0.6rem;
+            border-radius: 8px;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-btn.confirm {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .modal-btn.confirm:hover {
+            background: #00b4d8;
+        }
+
+        .modal-btn.cancel {
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .modal-btn.cancel:hover {
+            border-color: var(--danger);
+            color: var(--danger);
         }
 
         /* Export */
@@ -547,52 +650,27 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .countdown-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .prayer-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .gym-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .roadmap-table {
-                font-size: 0.8rem;
-            }
-            .roadmap-table th, .roadmap-table td {
-                padding: 0.5rem 0.3rem;
-            }
-            .header h1 {
-                font-size: 1.5rem;
-            }
+            .countdown-grid { grid-template-columns: repeat(2, 1fr); }
+            .prayer-grid { grid-template-columns: repeat(2, 1fr); }
+            .gym-grid { grid-template-columns: repeat(2, 1fr); }
+            .roadmap-table { font-size: 0.8rem; }
+            .roadmap-table th, .roadmap-table td { padding: 0.5rem 0.3rem; }
+            .header h1 { font-size: 1.5rem; }
+            .timer-controls { gap: 0.3rem; }
+            .timer-btn { padding: 0.35rem 0.6rem; font-size: 0.75rem; }
         }
 
         @media (max-width: 480px) {
-            .countdown-grid {
-                grid-template-columns: 1fr;
-            }
-            .prayer-grid {
-                grid-template-columns: 1fr;
-            }
-            .gym-grid {
-                grid-template-columns: 1fr;
-            }
+            .countdown-grid { grid-template-columns: 1fr; }
+            .prayer-grid { grid-template-columns: 1fr; }
+            .gym-grid { grid-template-columns: 1fr; }
         }
 
         /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
         /* Animations */
         @keyframes pulse {
@@ -600,17 +678,7 @@
             50% { opacity: 0.6; }
         }
 
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        .date-display {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
+        .pulse { animation: pulse 2s infinite; }
     </style>
 </head>
 <body>
@@ -813,6 +881,7 @@
                     <div class="timer-controls">
                         <button class="timer-btn" onclick="toggleTimer('cp')" id="btn-cp">▶ Play</button>
                         <button class="timer-btn" onclick="resetTimer('cp')">↺ Reset</button>
+                        <button class="timer-btn add-btn" onclick="openAddModal('cp')">➕ Add</button>
                     </div>
                     <div class="timer-progress">
                         <div class="timer-progress-bar" id="progress-cp" style="width: 0%"></div>
@@ -828,6 +897,7 @@
                     <div class="timer-controls">
                         <button class="timer-btn" onclick="toggleTimer('english')" id="btn-english">▶ Play</button>
                         <button class="timer-btn" onclick="resetTimer('english')">↺ Reset</button>
+                        <button class="timer-btn add-btn" onclick="openAddModal('english')">➕ Add</button>
                     </div>
                     <div class="timer-progress">
                         <div class="timer-progress-bar" id="progress-english" style="width: 0%"></div>
@@ -843,6 +913,7 @@
                     <div class="timer-controls">
                         <button class="timer-btn" onclick="toggleTimer('math')" id="btn-math">▶ Play</button>
                         <button class="timer-btn" onclick="resetTimer('math')">↺ Reset</button>
+                        <button class="timer-btn add-btn" onclick="openAddModal('math')">➕ Add</button>
                     </div>
                     <div class="timer-progress">
                         <div class="timer-progress-bar" id="progress-math" style="width: 0%"></div>
@@ -858,6 +929,7 @@
                     <div class="timer-controls">
                         <button class="timer-btn" onclick="toggleTimer('typing')" id="btn-typing">▶ Play</button>
                         <button class="timer-btn" onclick="resetTimer('typing')">↺ Reset</button>
+                        <button class="timer-btn add-btn" onclick="openAddModal('typing')">➕ Add</button>
                     </div>
                     <div class="timer-progress">
                         <div class="timer-progress-bar" id="progress-typing" style="width: 0%"></div>
@@ -873,6 +945,7 @@
                     <div class="timer-controls">
                         <button class="timer-btn" onclick="toggleTimer('school')" id="btn-school">▶ Play</button>
                         <button class="timer-btn" onclick="resetTimer('school')">↺ Reset</button>
+                        <button class="timer-btn add-btn" onclick="openAddModal('school')">➕ Add</button>
                     </div>
                     <div class="timer-progress">
                         <div class="timer-progress-bar" id="progress-school" style="width: 0%"></div>
@@ -897,9 +970,34 @@
         </div>
     </div>
 
+    <!-- Add Time Modal -->
+    <div class="modal-overlay" id="add-modal">
+        <div class="modal">
+            <div class="modal-title" id="modal-title">➕ Add Time</div>
+            <div class="modal-inputs">
+                <div class="modal-input-group">
+                    <label>Hours</label>
+                    <input type="number" class="modal-input" id="modal-hours" min="0" max="23" value="0">
+                </div>
+                <div class="modal-input-group">
+                    <label>Minutes</label>
+                    <input type="number" class="modal-input" id="modal-minutes" min="0" max="59" value="0">
+                </div>
+                <div class="modal-input-group">
+                    <label>Seconds</label>
+                    <input type="number" class="modal-input" id="modal-seconds" min="0" max="59" value="0">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn cancel" onclick="closeAddModal()">Cancel</button>
+                <button class="modal-btn confirm" onclick="confirmAddTime()">Add Time</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ===================== IOI 2027 Countdown =====================
-        const targetDate = new Date('2027-07-31T00:00:00'); // IOI 2027 estimated date
+        const targetDate = new Date('2027-07-31T00:00:00');
         document.getElementById('target-date').textContent = 'Target: ' + targetDate.toLocaleDateString('en-US', { 
             weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
         });
@@ -961,12 +1059,14 @@
         // ===================== Academic Timers =====================
         const timers = {};
         const timerTargets = {
-            cp: 8 * 3600,      // 8 hours
-            english: 1.5 * 3600, // 1.5 hours
-            math: 2 * 3600,    // 2 hours
-            typing: 0.5 * 3600, // 0.5 hours
-            school: 2 * 3600   // 2 hours
+            cp: 8 * 3600,
+            english: 1.5 * 3600,
+            math: 2 * 3600,
+            typing: 0.5 * 3600,
+            school: 2 * 3600
         };
+
+        let currentAddTimer = null;
 
         function formatTime(seconds) {
             const h = Math.floor(seconds / 3600);
@@ -984,14 +1084,12 @@
             }
 
             if (timers[id].running) {
-                // Pause
                 clearInterval(timers[id].interval);
                 timers[id].running = false;
                 btn.textContent = '▶ Play';
                 btn.classList.remove('play');
                 card.classList.remove('active');
             } else {
-                // Play
                 timers[id].running = true;
                 btn.textContent = '⏸ Pause';
                 btn.classList.add('play');
@@ -1021,6 +1119,55 @@
             document.getElementById('timer-' + id).classList.remove('active');
             saveState();
         }
+
+        // ===================== Add Time Modal =====================
+        function openAddModal(id) {
+            currentAddTimer = id;
+            const timerName = document.querySelector(`#timer-${id} .timer-name`).textContent.trim();
+            document.getElementById('modal-title').textContent = `➕ Add Time — ${timerName}`;
+            document.getElementById('modal-hours').value = 0;
+            document.getElementById('modal-minutes').value = 0;
+            document.getElementById('modal-seconds').value = 0;
+            document.getElementById('add-modal').classList.add('show');
+        }
+
+        function closeAddModal() {
+            document.getElementById('add-modal').classList.remove('show');
+            currentAddTimer = null;
+        }
+
+        function confirmAddTime() {
+            if (!currentAddTimer) return;
+
+            const hours = parseInt(document.getElementById('modal-hours').value) || 0;
+            const minutes = parseInt(document.getElementById('modal-minutes').value) || 0;
+            const seconds = parseInt(document.getElementById('modal-seconds').value) || 0;
+
+            const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+            if (totalSeconds > 0) {
+                if (!timers[currentAddTimer]) {
+                    timers[currentAddTimer] = { elapsed: 0, running: false, interval: null };
+                }
+                timers[currentAddTimer].elapsed += totalSeconds;
+                document.getElementById('display-' + currentAddTimer).textContent = formatTime(timers[currentAddTimer].elapsed);
+                const progress = Math.min((timers[currentAddTimer].elapsed / timerTargets[currentAddTimer]) * 100, 100);
+                document.getElementById('progress-' + currentAddTimer).style.width = progress + '%';
+                saveState();
+            }
+
+            closeAddModal();
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeAddModal();
+        });
+
+        // Close modal on overlay click
+        document.getElementById('add-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('add-modal')) closeAddModal();
+        });
 
         // ===================== Export =====================
         function getPrayerStatus() {
@@ -1072,23 +1219,18 @@
             let total = 0;
             let done = 0;
 
-            // Prayers (5)
             const prayers = getPrayerStatus();
             Object.values(prayers).forEach(v => { total++; if (v) done++; });
 
-            // Adhkar (2)
             const adhkar = getAdhkarStatus();
             Object.values(adhkar).forEach(v => { total++; if (v) done++; });
 
-            // Gym (5)
             const gym = getGymStatus();
             Object.values(gym).forEach(v => { total++; if (v) done++; });
 
-            // Milestones (6) - weighted less
             const milestones = getMilestoneStatus();
             Object.values(milestones).forEach(v => { total += 0.5; if (v) done += 0.5; });
 
-            // Timers progress
             Object.keys(timerTargets).forEach(key => {
                 total += 1;
                 const elapsed = timers[key] ? timers[key].elapsed : 0;
@@ -1152,7 +1294,6 @@
             try {
                 const state = JSON.parse(saved);
 
-                // Restore prayers
                 if (state.prayers) {
                     Object.entries(state.prayers).forEach(([key, val]) => {
                         const el = document.querySelector(`[data-prayer="${key}"]`);
@@ -1160,7 +1301,6 @@
                     });
                 }
 
-                // Restore adhkar
                 if (state.adhkar) {
                     Object.entries(state.adhkar).forEach(([key, val]) => {
                         const el = document.querySelector(`[data-adhkar="${key}"]`);
@@ -1168,7 +1308,6 @@
                     });
                 }
 
-                // Restore gym
                 if (state.gym) {
                     Object.entries(state.gym).forEach(([key, val]) => {
                         const el = document.querySelector(`[data-gym="${key}"]`);
@@ -1176,7 +1315,6 @@
                     });
                 }
 
-                // Restore milestones
                 if (state.milestones) {
                     Object.entries(state.milestones).forEach(([key, val]) => {
                         const row = document.querySelector(`tr[data-milestone="${key}"]`);
@@ -1190,7 +1328,6 @@
                     });
                 }
 
-                // Restore timers (elapsed time only, not running state)
                 if (state.timers) {
                     Object.entries(state.timers).forEach(([key, val]) => {
                         if (!timers[key]) timers[key] = { elapsed: 0, running: false, interval: null };
@@ -1205,11 +1342,8 @@
             }
         }
 
-        // Load saved state on page load
         loadState();
-
-        // Auto-save periodically
-        setInterval(saveState, 30000); // Save every 30 seconds
+        setInterval(saveState, 30000);
     </script>
 </body>
 </html>
